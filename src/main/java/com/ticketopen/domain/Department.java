@@ -1,13 +1,13 @@
 package com.ticketopen.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Category implements Serializable {
+public class Department implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -15,19 +15,16 @@ public class Category implements Serializable {
     private Integer id;
     private String name;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
+    @OneToMany(mappedBy = "department", cascade= CascadeType.ALL)
+    private List<Category> categoryList = new ArrayList<>();
 
-    public Category(Integer id, String name, Department department) {
-        this.id = id;
-        this.name = name;
-        this.department = department;
+    public Department() {
+
     }
 
-    public Category() {
-
+    public Department(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {
@@ -46,20 +43,20 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public Department getDepartment() {
-        return department;
+    public List<Category> getCategoryList() {
+        return categoryList;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return Objects.equals(id, category.id);
+        Department that = (Department) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
