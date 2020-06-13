@@ -28,11 +28,15 @@ public class TicketopenApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Department dep1 = new Department(null, "Technology");
+        Department dep2 = new Department(null, "Financial");
 
         Category cat1 = new Category(null, "Printer", dep1);
         Category cat2 = new Category(null, "Network", dep1);
 
-        departmentRepository.saveAll(Arrays.asList(dep1));
-        categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+        Category cat3 = new Category(null, "Expenses refund", dep2);
+        Category cat4 = new Category(null, "Invoice issuance", dep2);
+
+        departmentRepository.saveAll(Arrays.asList(dep1, dep2));
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
     }
 }

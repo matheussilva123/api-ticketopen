@@ -17,7 +17,7 @@ public class Category implements Serializable {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "departament_id")
     private Department department;
 
     public Category(Integer id, String name, Department department) {
