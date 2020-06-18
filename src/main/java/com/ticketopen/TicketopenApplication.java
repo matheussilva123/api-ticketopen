@@ -40,8 +40,13 @@ public class TicketopenApplication implements CommandLineRunner {
         Category cat3 = new Category(null, "Expenses refund", dep2);
         Category cat4 = new Category(null, "Invoice issuance", dep2);
 
+        dep1.getCategoryList().addAll(Arrays.asList(cat1, cat2));
+        dep2.getCategoryList().addAll(Arrays.asList(cat3, cat4));
+
         Person person1 = new Person(null, "Matheus da Silva Santos", dep2);
         Person person2 = new Person(null, "Rafael Araujo da Silva", dep1);
+
+        dep1.getPersonList().addAll(Arrays.asList(person1, person2));
 
         departmentRepository.saveAll(Arrays.asList(dep1, dep2));
         personRepository.saveAll(Arrays.asList(person1, person2));

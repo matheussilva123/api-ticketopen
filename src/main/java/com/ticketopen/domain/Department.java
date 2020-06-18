@@ -18,6 +18,9 @@ public class Department implements Serializable {
     @OneToMany(mappedBy = "department", cascade= CascadeType.ALL)
     private List<Category> categoryList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    private List<Person> personList = new ArrayList<>();
+
     public Department() {
 
     }
@@ -49,6 +52,14 @@ public class Department implements Serializable {
 
     public void setCategoryList(List<Category> categoryList) {
         this.categoryList = categoryList;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
     }
 
     @Override
