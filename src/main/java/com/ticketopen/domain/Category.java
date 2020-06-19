@@ -20,11 +20,11 @@ public class Category implements Serializable {
     @JoinColumn(name = "departament_id")
     private Department department;
 
-    public Category(Integer id, String name, Department department) {
-        this.id = id;
-        this.name = name;
-        this.department = department;
-    }
+        public Category(Integer id, String name, Department department) {
+            this.id = id;
+            this.name = name;
+            this.department = department;
+        }
 
     public Category() {
 

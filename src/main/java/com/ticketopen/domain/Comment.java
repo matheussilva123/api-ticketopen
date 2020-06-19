@@ -9,33 +9,28 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Person implements Serializable {
+public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
+    private String text;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
+    @ManyToMany
+    @JoinTable(name = "COMMENT_PERSON",
+            joinColumns = @JoinColumn(name = "comment_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id"))
+    private List<Person> personList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "personList")
+    @OneToMany
     private List<Ticket> ticketList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "personList")
-    private List<Comment> commentList = new ArrayList<>();
 
-    public Person() {
-
-    }
-
-    public Person(Integer id, String name, Department department) {
+    public Comment(Integer id, String text) {
         this.id = id;
-        this.name = name;
-        this.department = department;
+        this.text = text;
     }
 
     public Integer getId() {
@@ -46,20 +41,20 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getText() {
+        return text;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public Department getDepartment() {
-        return department;
+    public List<Person> getPersonList() {
+        return personList;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
     }
 
     public List<Ticket> getTicketList() {
@@ -70,20 +65,12 @@ public class Person implements Serializable {
         this.ticketList = ticketList;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id);
+        Comment comment = (Comment) o;
+        return Objects.equals(id, comment.id);
     }
 
     @Override

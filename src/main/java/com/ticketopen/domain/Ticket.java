@@ -1,15 +1,22 @@
 package com.ticketopen.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ticketopen.domain.enums.StateTicket;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Ticket implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
 
@@ -20,12 +27,34 @@ public class Ticket implements Serializable {
 
     private Integer state;
 
-    public Ticket(Integer id, String description, Date openingDate, Date closingDate, StateTicket state) {
+    @ManyToOne
+    private Department department;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "TICKET_PERSON",
+            joinColumns = @JoinColumn(name = "ticket_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id"))
+    private List<Person> personList = new ArrayList<>();
+
+    @OneToOne
+    private Category category;
+
+    @OneToMany
+    private List<Comment> commentList = new ArrayList<>();
+
+    public Ticket() {
+
+    }
+
+    public Ticket(Integer id, String description, Date openingDate, Date closingDate, StateTicket state, Department department, Category category) {
         this.id = id;
         this.description = description;
         this.openingDate = openingDate;
         this.closingDate = closingDate;
         this.state = (state == null) ? null : state.getId();
+        this.department = department;
+        this.category = category;
     }
 
     public Integer getId() {
@@ -66,6 +95,38 @@ public class Ticket implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     @Override
