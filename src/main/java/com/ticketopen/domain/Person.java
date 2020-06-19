@@ -25,8 +25,6 @@ public class Person implements Serializable {
     @ManyToMany(mappedBy = "personList")
     private List<Ticket> ticketList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "personList")
-    private List<Comment> commentList = new ArrayList<>();
 
     public Person() {
 
@@ -70,13 +68,6 @@ public class Person implements Serializable {
         this.ticketList = ticketList;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
 
     @Override
     public boolean equals(Object o) {
