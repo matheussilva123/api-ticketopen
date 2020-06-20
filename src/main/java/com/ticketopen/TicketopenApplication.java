@@ -1,14 +1,8 @@
 package com.ticketopen;
 
-import com.ticketopen.domain.Category;
-import com.ticketopen.domain.Department;
-import com.ticketopen.domain.Person;
-import com.ticketopen.domain.Ticket;
+import com.ticketopen.domain.*;
 import com.ticketopen.domain.enums.StateTicket;
-import com.ticketopen.repositories.CategoryRepository;
-import com.ticketopen.repositories.DepartmentRepository;
-import com.ticketopen.repositories.PersonRepository;
-import com.ticketopen.repositories.TicketRepository;
+import com.ticketopen.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,6 +25,9 @@ public class TicketopenApplication implements CommandLineRunner {
 
     @Autowired
     private TicketRepository ticketRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(TicketopenApplication.class, args);
@@ -56,16 +53,20 @@ public class TicketopenApplication implements CommandLineRunner {
         dep1.getPersonList().addAll(Arrays.asList(person1, person2));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Ticket ticket1 = new Ticket(null, "Preciso de uma categoria",
+        Ticket ticket1 = new Ticket(null, "Please check printer",
                 sdf.parse("18/06/2020 16:00"),
-                sdf.parse("18/06/2020 19:52"), StateTicket.OPEN, dep1, cat1);
+                sdf.parse("18/06/2020 19:52"), StateTicket.OPEN, cat1);
 
         ticket1.getPersonList().addAll(Arrays.asList(person1, person2));
+
+        Comment comment1 = new Comment(null, "The printer is normal...", person1, ticket1);
+        ticket1.getCommentList().addAll(Arrays.asList(comment1));
 
 
         departmentRepository.saveAll(Arrays.asList(dep1, dep2));
         personRepository.saveAll(Arrays.asList(person1, person2));
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
         ticketRepository.saveAll(Arrays.asList(ticket1));
+        commentRepository.saveAll(Arrays.asList(comment1));
     }
 }

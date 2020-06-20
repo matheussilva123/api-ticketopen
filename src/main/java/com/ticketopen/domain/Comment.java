@@ -1,6 +1,8 @@
 package com.ticketopen.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,20 +18,25 @@ public class Comment implements Serializable {
     private Integer id;
     private String text;
 
+    @JsonIgnore
     @OneToOne
+    @JoinColumn(name = "person_id")
     private Person person;
 
-    @OneToMany
-    private List<Ticket> ticketList = new ArrayList<>();
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
     public Comment() {
 
     }
 
-    public Comment(Integer id, String text, Person person) {
+    public Comment(Integer id, String text, Person person, Ticket ticket) {
         this.id = id;
         this.text = text;
         this.person = person;
+        this.ticket = ticket;
     }
 
     public Integer getId() {
@@ -48,12 +55,12 @@ public class Comment implements Serializable {
         this.text = text;
     }
 
-    public List<Ticket> getTicketList() {
-        return ticketList;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setTicketList(List<Ticket> ticketList) {
-        this.ticketList = ticketList;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
     public Person getPerson() {

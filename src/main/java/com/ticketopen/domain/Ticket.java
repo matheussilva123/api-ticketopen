@@ -27,8 +27,10 @@ public class Ticket implements Serializable {
 
     private Integer state;
 
-    @ManyToOne
-    private Department department;
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @JsonIgnore
     @ManyToMany
@@ -37,23 +39,19 @@ public class Ticket implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "person_id"))
     private List<Person> personList = new ArrayList<>();
 
-    @OneToOne
-    private Category category;
-
-    @OneToMany
+    @OneToMany(mappedBy = "ticket", cascade= CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
     public Ticket() {
 
     }
 
-    public Ticket(Integer id, String description, Date openingDate, Date closingDate, StateTicket state, Department department, Category category) {
+    public Ticket(Integer id, String description, Date openingDate, Date closingDate, StateTicket state, Category category) {
         this.id = id;
         this.description = description;
         this.openingDate = openingDate;
         this.closingDate = closingDate;
         this.state = (state == null) ? null : state.getId();
-        this.department = department;
         this.category = category;
     }
 
@@ -89,28 +87,12 @@ public class Ticket implements Serializable {
         this.closingDate = closingDate;
     }
 
-    public Integer getState() {
-        return state;
+    public StateTicket getState() {
+        return StateTicket.toEnum(state);
     }
 
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public List<Person> getPersonList() {
-        return personList;
-    }
-
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+    public void setState(StateTicket state) {
+        this.state = state.getId();
     }
 
     public Category getCategory() {
@@ -119,6 +101,14 @@ public class Ticket implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
     }
 
     public List<Comment> getCommentList() {
