@@ -16,6 +16,7 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private String email;
 
     @JsonIgnore
     @ManyToOne
@@ -30,9 +31,10 @@ public class Person implements Serializable {
 
     }
 
-    public Person(Integer id, String name, Department department) {
+    public Person(Integer id, String name, String email, Department department) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.department = department;
     }
 

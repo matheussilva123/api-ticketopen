@@ -47,8 +47,10 @@ public class TicketopenApplication implements CommandLineRunner {
         dep1.getCategoryList().addAll(Arrays.asList(cat1, cat2));
         dep2.getCategoryList().addAll(Arrays.asList(cat3, cat4));
 
-        Person person1 = new Person(null, "Matheus da Silva Santos", dep2);
-        Person person2 = new Person(null, "Rafael Araujo da Silva", dep1);
+        Person person1 = new Person(null, "Matheus da Silva Santos",
+                "matheus.dias@ifood.com.br", dep2);
+        Person person2 = new Person(null, "Rafael Araujo da Silva",
+                "rafaelajds@gmail.com", dep1);
 
         dep1.getPersonList().addAll(Arrays.asList(person1, person2));
 
