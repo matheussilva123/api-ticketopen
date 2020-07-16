@@ -38,6 +38,14 @@ public class Person implements Serializable {
         this.department = department;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Integer getId() {
         return id;
     }
