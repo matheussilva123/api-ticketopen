@@ -22,4 +22,9 @@ public class DepartmentService {
                         ", type class: " + Department.class.getName()));
     }
 
+    public Department insertDepartment(Department obj) {
+        obj.setId(null);
+        return repo.save(obj);
+    }
+
 }
