@@ -18,7 +18,7 @@ public class DepartmentResources {
     private DepartmentService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> findById(@PathVariable Integer id) {
+    public ResponseEntity<Department> findById(@PathVariable Integer id) {
         Department obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
@@ -29,5 +29,15 @@ public class DepartmentResources {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateDepartment(
+            @RequestBody Department obj, @PathVariable Integer id) {
+
+        obj.setId(id);
+        obj = service.update(obj);
+        return ResponseEntity.noContent().build();
+
     }
 }

@@ -27,4 +27,8 @@ public class DepartmentService {
         return repo.save(obj);
     }
 
+    public Department update(Department obj) {
+        findById(obj.getId());
+        return repo.save(obj);
+    }
 }
