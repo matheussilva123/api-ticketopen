@@ -2,8 +2,10 @@ package com.ticketopen.services;
 
 import com.ticketopen.domain.Department;
 import com.ticketopen.repositories.DepartmentRepository;
+import com.ticketopen.services.exceptions.DataIntegrityException;
 import com.ticketopen.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,5 +32,17 @@ public class DepartmentService {
     public Department update(Department obj) {
         findById(obj.getId());
         return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+        findById(id);
+        try {
+            repo.deleteById(id);
+        } catch (
+                DataIntegrityViolationException e) {
+            throw new DataIntegrityException("It is not possible to delete an" +
+                    " entity associated with another. ");
+        }
+
     }
 }
