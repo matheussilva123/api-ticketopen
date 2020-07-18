@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,6 +44,10 @@ public class DepartmentService {
             throw new DataIntegrityException("It is not possible to delete an" +
                     " entity associated with another. ");
         }
-
     }
+
+    public List<Department> findAll(){
+     return repo.findAll();
+    }
+
 }
