@@ -1,6 +1,7 @@
 package com.ticketopen.services;
 
 import com.ticketopen.domain.Department;
+import com.ticketopen.dto.DepartmentDTO;
 import com.ticketopen.repositories.DepartmentRepository;
 import com.ticketopen.services.exceptions.DataIntegrityException;
 import com.ticketopen.services.exceptions.ObjectNotFoundException;
@@ -57,6 +58,10 @@ public class DepartmentService {
                                      String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Department fromDTO(DepartmentDTO objDto){
+        return new Department(objDto.getId(), objDto.getName());
     }
 
 }

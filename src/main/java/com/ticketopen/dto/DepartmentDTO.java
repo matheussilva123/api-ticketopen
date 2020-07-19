@@ -1,7 +1,9 @@
 package com.ticketopen.dto;
 
 import com.ticketopen.domain.Department;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 public class DepartmentDTO implements Serializable {
@@ -9,6 +11,9 @@ public class DepartmentDTO implements Serializable {
 
 
     private Integer id;
+
+    @NotEmpty(message="It cannot be empty")
+    @Length(min = 5, max = 20, message = "The length must be between 5 and 80 characters")
     private String name;
 
     public DepartmentDTO() {

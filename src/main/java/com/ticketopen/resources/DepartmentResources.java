@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +29,8 @@ public class DepartmentResources {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insertDepartment(@RequestBody Department obj) {
+    public ResponseEntity<Void> insertDepartment(@Valid @RequestBody DepartmentDTO objDto) {
+        Department obj = service.fromDTO(objDto);
         obj = service.insertDepartment(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
