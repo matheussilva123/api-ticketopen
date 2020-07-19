@@ -67,6 +67,12 @@ public class TicketopenApplication implements CommandLineRunner {
 
         ticket1.getPersonList().addAll(Arrays.asList(person1, person2));
 
+        Ticket ticket2 = new Ticket(null, "Printer",
+                sdf.parse("02/01/2020 16:00"),
+                sdf.parse("06/01/2020 19:52"), StateTicket.OPEN, cat1);
+
+        ticket2.getPersonList().addAll(Arrays.asList(person1, person2));
+
         Comment comment1 = new Comment(null, "The printer is normal...", person1, ticket1);
         ticket1.getCommentList().addAll(Arrays.asList(comment1));
 
@@ -74,7 +80,7 @@ public class TicketopenApplication implements CommandLineRunner {
         departmentRepository.saveAll(Arrays.asList(dep1, dep2, dep3, dep4, dep5, dep6, dep7, dep8));
         personRepository.saveAll(Arrays.asList(person1, person2));
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
-        ticketRepository.saveAll(Arrays.asList(ticket1));
+        ticketRepository.saveAll(Arrays.asList(ticket1, ticket2));
         commentRepository.saveAll(Arrays.asList(comment1));
     }
 }
