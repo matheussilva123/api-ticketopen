@@ -34,8 +34,9 @@ public class DepartmentService {
         return repo.save(obj);
     }
 
-    public Department update(Department obj) {
-        findById(obj.getId());
+    public Department updateDepartment(Department obj) {
+        Department newObj = findById(obj.getId());
+        updateDate(newObj, obj);
         return repo.save(obj);
     }
 
@@ -62,6 +63,10 @@ public class DepartmentService {
 
     public Department fromDTO(DepartmentDTO objDto){
         return new Department(objDto.getId(), objDto.getName());
+    }
+
+    private void updateDate(Department newObj, Department obj) {
+        newObj.setName(obj.getName());
     }
 
 }

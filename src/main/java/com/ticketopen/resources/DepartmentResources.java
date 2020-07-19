@@ -41,7 +41,7 @@ public class DepartmentResources {
     public ResponseEntity<Void> updateDepartment(
             @RequestBody Department obj, @PathVariable Integer id) {
         obj.setId(id);
-        obj = service.update(obj);
+        obj = service.updateDepartment(obj);
         return ResponseEntity.noContent().build();
     }
 
