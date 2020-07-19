@@ -38,6 +38,12 @@ public class TicketopenApplication implements CommandLineRunner {
 
         Department dep1 = new Department(null, "Technology");
         Department dep2 = new Department(null, "Financial");
+        Department dep3 = new Department(null, "Marketing");
+        Department dep4 = new Department(null, "Cleaning");
+        Department dep5 = new Department(null, "Human Resources");
+        Department dep6 = new Department(null, "Administration");
+        Department dep7 = new Department(null, "Management");
+        Department dep8 = new Department(null, "Maintenance");
 
         Category cat1 = new Category(null, "Printer", dep1);
         Category cat2 = new Category(null, "Network", dep1);
@@ -65,7 +71,7 @@ public class TicketopenApplication implements CommandLineRunner {
         ticket1.getCommentList().addAll(Arrays.asList(comment1));
 
 
-        departmentRepository.saveAll(Arrays.asList(dep1, dep2));
+        departmentRepository.saveAll(Arrays.asList(dep1, dep2, dep3, dep4, dep5, dep6, dep7, dep8));
         personRepository.saveAll(Arrays.asList(person1, person2));
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
         ticketRepository.saveAll(Arrays.asList(ticket1));

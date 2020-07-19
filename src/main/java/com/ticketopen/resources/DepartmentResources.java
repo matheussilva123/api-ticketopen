@@ -1,13 +1,11 @@
 package com.ticketopen.resources;
 
 
-import com.sun.xml.bind.v2.schemagen.XmlSchemaGenerator;
 import com.ticketopen.domain.Department;
 import com.ticketopen.dto.DepartmentDTO;
 import com.ticketopen.services.DepartmentService;
-import com.ticketopen.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -55,6 +53,17 @@ public class DepartmentResources {
     public ResponseEntity<List<DepartmentDTO>> findAll() {
         List<Department> list = service.findAll();
         List<DepartmentDTO> dtoList = list.stream().map(DepartmentDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(dtoList);
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<DepartmentDTO>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name")String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC")String direction) {
+        Page<Department> list = service.findPage(page, linesPerPage, orderBy,direction);
+        Page<DepartmentDTO> dtoList = list.map(DepartmentDTO::new);
         return ResponseEntity.ok().body(dtoList);
     }
 }
