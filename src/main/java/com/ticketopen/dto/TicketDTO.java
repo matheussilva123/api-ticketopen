@@ -28,7 +28,7 @@ public class TicketDTO implements Serializable {
 
     private Integer categoryId;
 
-    private Integer Departmentid;
+    private Integer DepartmentId;
 
 
     public TicketDTO() {
@@ -91,10 +91,10 @@ public class TicketDTO implements Serializable {
     }
 
     public Integer getDepartmentid() {
-        return Departmentid;
+        return DepartmentId;
     }
 
     public void setDepartmentid(Integer departmentid) {
-        Departmentid = departmentid;
+        DepartmentId = departmentid;
     }
 }

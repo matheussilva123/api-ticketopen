@@ -47,7 +47,6 @@ public class TicketResource {
         return ResponseEntity.noContent().build();
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<TicketDTO>> findAll() {
         List<Ticket> list = service.findAll();
