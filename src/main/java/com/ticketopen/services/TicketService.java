@@ -61,7 +61,11 @@ public class TicketService {
     }
 
     public Ticket fromDTO(TicketDTO objDto){
-        return new Ticket(objDto.getId(), objDto.getDescription(), objDto.getOpeningDate(), objDto.getClosingDate(), objDto.getState(),null);
+
+        Department department = new Department(objDto.getDepartmentid(), null);
+        Category category = new Category(objDto.getCategoryId(), null, department);
+        return new Ticket(objDto.getId(), objDto.getDescription(), objDto.getOpeningDate(),
+                objDto.getClosingDate(), objDto.getState(),category);
     }
 
     public Ticket fromDTO(TicketNewDTO objDto){

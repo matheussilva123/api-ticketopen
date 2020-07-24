@@ -37,13 +37,16 @@ public class TicketResource {
         return ResponseEntity.created(uri).build();
     }
 
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> updateTicket(
-            @RequestBody Ticket obj, @PathVariable Integer id) {
+    public ResponseEntity<Void> update(@Valid @RequestBody TicketDTO objDTO,
+                                       @PathVariable Integer id) {
+        Ticket obj = service.fromDTO(objDTO);
         obj.setId(id);
         obj = service.updateTicket(obj);
         return ResponseEntity.noContent().build();
     }
+
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<TicketDTO>> findAll() {

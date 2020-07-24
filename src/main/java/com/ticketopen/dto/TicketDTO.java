@@ -26,6 +26,10 @@ public class TicketDTO implements Serializable {
 
     private StateTicket state;
 
+    private Integer categoryId;
+
+    private Integer Departmentid;
+
 
     public TicketDTO() {
     }
@@ -76,5 +80,21 @@ public class TicketDTO implements Serializable {
 
     public void setOpeningDate(Date openingDate) {
         this.openingDate = openingDate;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Integer getDepartmentid() {
+        return Departmentid;
+    }
+
+    public void setDepartmentid(Integer departmentid) {
+        Departmentid = departmentid;
     }
 }

@@ -19,6 +19,8 @@ public class TicketNewDTO implements Serializable {
 
     private Integer Departmentid;
 
+    //TODO insert person in DTO
+
     public TicketNewDTO() {
 
     }
