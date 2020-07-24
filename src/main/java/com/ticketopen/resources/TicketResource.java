@@ -2,6 +2,7 @@ package com.ticketopen.resources;
 
 import com.ticketopen.domain.Ticket;
 import com.ticketopen.dto.TicketDTO;
+import com.ticketopen.dto.TicketNewDTO;
 import com.ticketopen.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +29,7 @@ public class TicketResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insertTicket(@Valid @RequestBody TicketDTO objDto) {
+    public ResponseEntity<Void> insertTicket(@Valid @RequestBody TicketNewDTO objDto) {
         Ticket obj = service.fromDTO(objDto);
         obj = service.insertTicket(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
