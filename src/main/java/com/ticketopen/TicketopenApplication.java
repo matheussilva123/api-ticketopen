@@ -69,13 +69,13 @@ public class TicketopenApplication implements CommandLineRunner {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Ticket ticket1 = new Ticket(null, "A impressora não está imprimindo precisamos trocar o tonner",
                 sdf.parse("18/06/2020 16:00"),
-                sdf.parse(""), StateTicket.OPEN, cat1);
+                sdf.parse("18/06/2020 18:00"), StateTicket.OPEN, cat1);
 
         ticket1.getPersonList().addAll(Arrays.asList(person1, person2));
 
         Ticket ticket2 = new Ticket(null, "Impressora está com defeito",
                 sdf.parse("02/01/2020 16:00"),
-                sdf.parse(""), StateTicket.OPEN, cat1);
+                sdf.parse("02/01/2020 18:00"), StateTicket.OPEN, cat1);
 
         ticket2.getPersonList().addAll(Arrays.asList(person1, person2));
 
