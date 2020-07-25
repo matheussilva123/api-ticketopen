@@ -17,9 +17,9 @@ public class TicketNewDTO implements Serializable {
 
     private Integer categoryId;
 
-    private Integer Departmentid;
+    private Integer DepartmentId;
 
-    //TODO insert person in DTO
+    private Integer personId;
 
     public TicketNewDTO() {
 
@@ -65,12 +65,19 @@ public class TicketNewDTO implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Integer getDepartmentid() {
-        return Departmentid;
+    public Integer getDepartmentId() {
+        return DepartmentId;
     }
 
-    public void setDepartmentid(Integer departmentid) {
-        Departmentid = departmentid;
+    public void setDepartmentId(Integer departmentId) {
+        DepartmentId = departmentId;
     }
 
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
 }

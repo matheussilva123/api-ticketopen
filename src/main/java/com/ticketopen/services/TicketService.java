@@ -70,12 +70,14 @@ public class TicketService {
 
     public Ticket fromDTO(TicketNewDTO objDto){
 
-        Department department = new Department(objDto.getDepartmentid(), null);
+        Department department = new Department(objDto.getDepartmentId(), null);
         Category category = new Category(objDto.getCategoryId(), null, department);
+        Person person = new Person(objDto.getPersonId(), null, null,null);
 
         Ticket ticket = new Ticket(null, objDto.getDescription(),objDto.getOpeningDate(),
                 objDto.getClosingDate(), StateTicket.toEnum(objDto.getState()), category);
 
+        ticket.getPersonList().add(person);
 
         return ticket;
     }
