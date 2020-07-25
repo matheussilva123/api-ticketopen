@@ -30,6 +30,4 @@ public class CommentResources {
         return ResponseEntity.created(uri).build();
     }
 
-
-
 }
