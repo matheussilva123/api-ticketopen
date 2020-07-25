@@ -1,13 +1,14 @@
 package com.ticketopen.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ticketopen.domain.Person;
 import com.ticketopen.domain.Ticket;
 import com.ticketopen.domain.enums.StateTicket;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 
 public class TicketDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -28,7 +29,11 @@ public class TicketDTO implements Serializable {
 
     private Integer categoryId;
 
-    private Integer DepartmentId;
+    private String nameCategory;
+
+    private Integer departmentId;
+
+    private String nameDepartment;
 
 
     public TicketDTO() {
@@ -40,6 +45,10 @@ public class TicketDTO implements Serializable {
         openingDate = obj.getOpeningDate();
         closingDate = obj.getClosingDate();
         this.state = obj.getState();
+        categoryId = obj.getCategory().getId();
+        nameCategory = obj.getCategory().getName();
+        departmentId = obj.getCategory().getDepartment().getId();
+        nameDepartment = obj.getCategory().getDepartment().getName();
         }
 
     public Integer getId() {
@@ -90,11 +99,27 @@ public class TicketDTO implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Integer getDepartmentid() {
-        return DepartmentId;
+    public Integer getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartmentid(Integer departmentid) {
-        DepartmentId = departmentid;
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getNameCategory() {
+        return nameCategory;
+    }
+
+    public void setNameCategory(String nameCategory) {
+        this.nameCategory = nameCategory;
+    }
+
+    public String getNameDepartment() {
+        return nameDepartment;
+    }
+
+    public void setNameDepartment(String nameDepartment) {
+        this.nameDepartment = nameDepartment;
     }
 }
