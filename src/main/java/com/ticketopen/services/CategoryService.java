@@ -3,10 +3,12 @@ package com.ticketopen.services;
 import com.ticketopen.domain.Category;
 import com.ticketopen.domain.Department;
 import com.ticketopen.dto.CategoryDTO;
+import com.ticketopen.dto.CategoryNewDTO;
 import com.ticketopen.repositories.CategoryRepository;
 import com.ticketopen.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -31,6 +33,14 @@ public class CategoryService {
         return new Category(objDTO.getId(), objDTO.getName(), department);
     }
 
+    public Category fromDTO(CategoryNewDTO objDTO) {
+        Department department = new Department(objDTO.getDepartmentId(),null);
+
+        Category category = new Category(null, objDTO.getName(), department);
+
+        return category;
+    }
+
     public Category updateCategory(Category obj){
         Category newObj = findById(obj.getId());
         updateDate(newObj, obj);
@@ -42,5 +52,10 @@ public class CategoryService {
         newObj.setDepartment(obj.getDepartment());
     }
 
+    @Transactional
+    public Category insertCategory(Category obj) {
+        obj.setId(null);
+        return repo.save(obj);
+    }
 
 }
