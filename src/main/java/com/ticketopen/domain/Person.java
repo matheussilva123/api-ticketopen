@@ -23,6 +23,7 @@ public class Person implements Serializable {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "personList")
     private List<Ticket> ticketList = new ArrayList<>();
 

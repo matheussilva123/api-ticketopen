@@ -32,6 +32,7 @@ public class Ticket implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "TICKET_PERSON",
             joinColumns = @JoinColumn(name = "ticket_id"),
