@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
@@ -67,6 +68,10 @@ public class TicketService {
 
         Ticket ticket = new Ticket(objDto.getId(), objDto.getDescription(), objDto.getOpeningDate(),
                 objDto.getClosingDate(), objDto.getState(),category);
+
+        List<Person> personList = objDto.getPersonList();
+
+        personList.stream().map(x -> new Person(x.getId(), null, null, null)).forEach(person -> ticket.getPersonList().add(person));
 
         return ticket;
     }

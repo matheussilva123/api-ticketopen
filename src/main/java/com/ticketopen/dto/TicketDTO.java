@@ -15,7 +15,7 @@ public class TicketDTO implements Serializable {
 
     private Integer id;
 
-    @NotEmpty(message="It cannot be empty")
+    @NotEmpty(message = "It cannot be empty")
     @Length(min = 10, max = 250, message = "The length must be between 10 and 250 characters")
     private String description;
 
@@ -35,6 +35,7 @@ public class TicketDTO implements Serializable {
 
     private String nameDepartment;
 
+    private List<Person> personList;
 
     public TicketDTO() {
     }
@@ -49,7 +50,8 @@ public class TicketDTO implements Serializable {
         nameCategory = obj.getCategory().getName();
         departmentId = obj.getCategory().getDepartment().getId();
         nameDepartment = obj.getCategory().getDepartment().getName();
-        }
+        personList = obj.getPersonList();
+    }
 
     public Integer getId() {
         return id;
@@ -121,5 +123,13 @@ public class TicketDTO implements Serializable {
 
     public void setNameDepartment(String nameDepartment) {
         this.nameDepartment = nameDepartment;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
     }
 }
