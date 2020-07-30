@@ -75,7 +75,7 @@ public class TicketopenApplication implements CommandLineRunner {
 
         Ticket ticket2 = new Ticket(null, "Impressora está com defeito",
                 sdf.parse("02/01/2020 16:00"),
-                sdf.parse("02/01/2020 18:00"), StateTicket.OPEN, cat1);
+                sdf.parse("02/01/2020 18:00"), StateTicket.OPEN, cat2);
 
         ticket2.getPersonList().addAll(Arrays.asList(person1, person2));
 
