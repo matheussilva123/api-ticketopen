@@ -1,5 +1,7 @@
 package com.ticketopen.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Department implements Serializable {
     @OneToMany(mappedBy = "department", cascade= CascadeType.ALL)
     private List<Category> categoryList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Person> personList = new ArrayList<>();
 
