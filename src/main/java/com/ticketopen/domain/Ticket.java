@@ -1,7 +1,6 @@
 package com.ticketopen.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ticketopen.domain.enums.StateTicket;
 
 import javax.persistence.*;
@@ -27,19 +26,18 @@ public class Ticket implements Serializable {
 
     private Integer state;
 
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(name = "TICKET_PERSON",
             joinColumns = @JoinColumn(name = "ticket_id"),
             inverseJoinColumns = @JoinColumn(name = "person_id"))
     private List<Person> personList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "ticket", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
     public Ticket() {

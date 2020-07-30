@@ -7,9 +7,6 @@ import com.ticketopen.domain.Ticket;
 import com.ticketopen.domain.enums.StateTicket;
 import com.ticketopen.dto.TicketDTO;
 import com.ticketopen.dto.TicketNewDTO;
-import com.ticketopen.repositories.CategoryRepository;
-import com.ticketopen.repositories.DepartmentRepository;
-import com.ticketopen.repositories.PersonRepository;
 import com.ticketopen.repositories.TicketRepository;
 import com.ticketopen.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
@@ -35,7 +31,7 @@ public class TicketService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Object not found!" +
                         " id: " + id +
-                        ", type class: "  + Ticket.class.getName()));
+                        ", type class: " + Ticket.class.getName()));
     }
 
 
@@ -51,23 +47,23 @@ public class TicketService {
         return repo.save(obj);
     }
 
-    public List<Ticket> findAll(){
+    public List<Ticket> findAll() {
         return repo.findAll();
     }
 
     public Page<Ticket> findPage(Integer page, Integer linesPerPage,
-                                 String orderBy, String direction){
+                                 String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
     }
 
-    public Ticket fromDTO(TicketDTO objDto){
+    public Ticket fromDTO(TicketDTO objDto) {
 
         Department department = new Department(objDto.getDepartmentId(), objDto.getNameDepartment());
         Category category = new Category(objDto.getCategoryId(), objDto.getNameCategory(), department);
 
         Ticket ticket = new Ticket(objDto.getId(), objDto.getDescription(), objDto.getOpeningDate(),
-                objDto.getClosingDate(), objDto.getState(),category);
+                objDto.getClosingDate(), objDto.getState(), category);
 
         List<Person> personList = objDto.getPersonList();
 
@@ -76,13 +72,13 @@ public class TicketService {
         return ticket;
     }
 
-    public Ticket fromDTO(TicketNewDTO objDto){
+    public Ticket fromDTO(TicketNewDTO objDto) {
 
         Department department = new Department(objDto.getDepartmentId(), null);
         Category category = new Category(objDto.getCategoryId(), null, department);
-        Person person = new Person(objDto.getPersonId(), null, null,null);
+        Person person = new Person(objDto.getPersonId(), null, null, null);
 
-        Ticket ticket = new Ticket(null, objDto.getDescription(),objDto.getOpeningDate(),
+        Ticket ticket = new Ticket(null, objDto.getDescription(), objDto.getOpeningDate(),
                 objDto.getClosingDate(), StateTicket.toEnum(objDto.getState()), category);
 
         ticket.getPersonList().add(person);
@@ -90,7 +86,7 @@ public class TicketService {
         return ticket;
     }
 
-    private void updateDate(Ticket newObj,  Ticket obj){
+    private void updateDate(Ticket newObj, Ticket obj) {
         newObj.setDescription(obj.getDescription());
         newObj.setClosingDate(obj.getClosingDate());
         newObj.setState(obj.getState());
