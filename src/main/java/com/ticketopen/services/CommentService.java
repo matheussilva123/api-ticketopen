@@ -20,6 +20,7 @@ public class CommentService {
         Person person = new Person(objDto.getPersonId(), null, null, null);
         Ticket ticket = new Ticket(objDto.getTicketId(), null, null, null, null, null);
         Comment comment = new Comment(null, objDto.getText(), person, ticket);
+        ticket.getCommentList().add(comment);
 
         return comment;
     }
