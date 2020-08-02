@@ -1,14 +1,20 @@
 package com.ticketopen.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 
 public class TicketNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+
+    @NotEmpty(message = "It cannot be empty")
+    @Length(min = 10, max = 250, message = "The length must be between 10 and 250 characters")
     private String description;
+
     @JsonFormat(locale = "dd/MM/yyyy HH:mm")
     private Date openingDate;
 
