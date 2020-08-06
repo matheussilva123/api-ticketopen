@@ -67,7 +67,7 @@ public class TicketService {
 
         List<Person> personList = objDto.getPersonList();
 
-        personList.stream().map(x -> new Person(x.getId(), null, null, null)).forEach(person -> ticket.getPersonList().add(person));
+        personList.stream().map(x -> new Person(x.getId(), null, null, null, null)).forEach(person -> ticket.getPersonList().add(person));
 
         return ticket;
     }
@@ -75,7 +75,7 @@ public class TicketService {
     public Ticket fromDTO(TicketNewDTO objDto) {
 
         Category category = new Category(objDto.getCategoryId(), null, null);
-        Person person = new Person(objDto.getPersonId(), null, null, null);
+        Person person = new Person(objDto.getPersonId(), null, null, null, null);
 
         Ticket ticket = new Ticket(null, objDto.getDescription(), objDto.getOpeningDate(),
                 null, StateTicket.OPEN, category);

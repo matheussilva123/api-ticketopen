@@ -19,6 +19,9 @@ public class Person implements Serializable {
     private String email;
 
     @JsonIgnore
+    private String password;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
@@ -32,11 +35,20 @@ public class Person implements Serializable {
 
     }
 
-    public Person(Integer id, String name, String email, Department department) {
+    public Person(Integer id, String name, String email, Department department, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.department = department;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {

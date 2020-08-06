@@ -17,7 +17,7 @@ public class CommentService {
 
 
     public Comment fromDTO(CommentNewDTO objDto) {
-        Person person = new Person(objDto.getPersonId(), null, null, null);
+        Person person = new Person(objDto.getPersonId(), null, null, null, null);
         Ticket ticket = new Ticket(objDto.getTicketId(), null, null, null, null, null);
         Comment comment = new Comment(null, objDto.getText(), person, ticket);
         ticket.getCommentList().add(comment);

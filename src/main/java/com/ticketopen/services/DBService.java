@@ -4,6 +4,7 @@ import com.ticketopen.domain.*;
 import com.ticketopen.domain.enums.StateTicket;
 import com.ticketopen.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -12,6 +13,9 @@ import java.util.Arrays;
 
 @Service
 public class DBService {
+
+    @Autowired
+    private BCryptPasswordEncoder pe;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -53,9 +57,9 @@ public class DBService {
         dep2.getCategoryList().addAll(Arrays.asList(cat8, cat9, cat10, cat11, cat12, cat13, cat14));
 
         Person person1 = new Person(null, "Matheus da Silva Santos",
-                "matheus_silva521@hotmail.com", dep2);
+                "matheus_silva521@hotmail.com", dep2, pe.encode("123"));
         Person person2 = new Person(null, "Rafael Araujo da Silva",
-                "rafaelajds@gmail.com", dep1);
+                "rafaelajds@gmail.com", dep1, pe.encode("123"));
 
         dep1.getPersonList().addAll(Arrays.asList(person1, person2));
 
