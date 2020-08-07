@@ -1,6 +1,7 @@
 package com.ticketopen.services;
 
 import com.ticketopen.domain.*;
+import com.ticketopen.domain.enums.Profile;
 import com.ticketopen.domain.enums.StateTicket;
 import com.ticketopen.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,8 @@ public class DBService {
                 "matheus_silva521@hotmail.com", dep2, pe.encode("123"));
         Person person2 = new Person(null, "Rafael Araujo da Silva",
                 "rafaelajds@gmail.com", dep1, pe.encode("123"));
+        person1.addProfile(Profile.ADMIN);
+        person2.addProfile(Profile.ADMIN);
 
         dep1.getPersonList().addAll(Arrays.asList(person1, person2));
 

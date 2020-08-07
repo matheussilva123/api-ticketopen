@@ -1,12 +1,12 @@
 package com.ticketopen.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ticketopen.domain.enums.Profile;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Person implements Serializable {
@@ -31,7 +31,12 @@ public class Person implements Serializable {
     private List<Ticket> ticketList = new ArrayList<>();
 
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="ROLES_USERS")
+    private Set<Integer> profiles = new HashSet<>();
+
     public Person() {
+        addProfile(Profile.USER);
 
     }
 
@@ -91,6 +96,13 @@ public class Person implements Serializable {
         this.ticketList = ticketList;
     }
 
+    public Set<Profile> getProfiles() {
+        return profiles.stream().map(Profile::toEnum).collect(Collectors.toSet());
+    }
+
+    public void addProfile(Profile profile){
+        profiles.add(profile.getId());
+    }
 
     @Override
     public boolean equals(Object o) {
