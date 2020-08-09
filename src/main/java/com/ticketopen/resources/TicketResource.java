@@ -7,6 +7,7 @@ import com.ticketopen.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,12 +23,14 @@ public class TicketResource {
     @Autowired
     private TicketService service;
 
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> findById(@PathVariable Integer id) {
         Ticket obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insertTicket(@Valid @RequestBody TicketNewDTO objDto) {
         Ticket obj = service.fromDTO(objDto);
@@ -37,7 +40,7 @@ public class TicketResource {
         return ResponseEntity.created(uri).build();
     }
 
-
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody TicketDTO objDTO,
                                        @PathVariable Integer id) {
@@ -47,6 +50,7 @@ public class TicketResource {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<TicketDTO>> findAll() {
         List<Ticket> list = service.findAll();
@@ -54,6 +58,7 @@ public class TicketResource {
         return ResponseEntity.ok().body(dtoList);
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<TicketDTO>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,

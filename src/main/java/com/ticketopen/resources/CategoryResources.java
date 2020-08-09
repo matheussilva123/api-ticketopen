@@ -20,6 +20,7 @@ public class CategoryResources {
     @Autowired
     private CategoryService service;
 
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Category> findById(@PathVariable Integer id) {
         Category obj = service.findById(id);

@@ -23,6 +23,7 @@ public class DepartmentResources {
     @Autowired
     private DepartmentService service;
 
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Department> findById(@PathVariable Integer id) {
         Department obj = service.findById(id);
@@ -55,6 +56,7 @@ public class DepartmentResources {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<DepartmentDTO>> findAll() {
         List<Department> list = service.findAll();
@@ -62,6 +64,7 @@ public class DepartmentResources {
         return ResponseEntity.ok().body(dtoList);
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<DepartmentDTO>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,

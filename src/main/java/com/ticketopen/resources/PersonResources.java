@@ -19,6 +19,7 @@ public class PersonResources {
     @Autowired
     private PersonService service;
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Person> findById(@PathVariable Integer id) {
         Person obj = service.findById(id);

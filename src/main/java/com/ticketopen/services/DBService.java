@@ -63,6 +63,8 @@ public class DBService {
                 "rafaelajds@gmail.com", dep1, pe.encode("123"));
         person1.addProfile(Profile.ADMIN);
         person2.addProfile(Profile.ADMIN);
+        person1.addProfile(Profile.USER);
+        person2.addProfile(Profile.USER);
 
         dep1.getPersonList().addAll(Arrays.asList(person1, person2));
 
