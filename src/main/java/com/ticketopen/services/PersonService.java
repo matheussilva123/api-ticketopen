@@ -2,8 +2,11 @@ package com.ticketopen.services;
 
 import com.ticketopen.domain.Department;
 import com.ticketopen.domain.Person;
+import com.ticketopen.domain.enums.Profile;
 import com.ticketopen.dto.PersonNewDTO;
 import com.ticketopen.repositories.PersonRepository;
+import com.ticketopen.security.UserSS;
+import com.ticketopen.services.exceptions.AuthorizationException;
 import com.ticketopen.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +25,12 @@ public class PersonService {
     private PersonRepository repo;
 
     public Person findById(Integer id) {
+        UserSS user = UserService.authenticated();
+        if (user==null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Access denied");
+        }
+
+
         Optional<Person> obj = repo.findById(id);
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(
