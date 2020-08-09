@@ -6,6 +6,7 @@ import com.ticketopen.dto.CategoryNewDTO;
 import com.ticketopen.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,7 +26,7 @@ public class CategoryResources {
         return ResponseEntity.ok().body(obj);
     }
 
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO objDTO,
                                        @PathVariable Integer id) {
@@ -35,6 +36,7 @@ public class CategoryResources {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insertCategory(@Valid @RequestBody CategoryNewDTO objDto) {
         Category obj = service.fromDTO(objDto);
