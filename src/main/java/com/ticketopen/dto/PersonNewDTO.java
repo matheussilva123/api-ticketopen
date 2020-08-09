@@ -4,30 +4,18 @@ import javax.validation.constraints.NotEmpty;
 
 public class PersonNewDTO {
 
-    private Integer id;
 
-    @NotEmpty(message = "It cannot be empty")
     private String name;
 
-    @NotEmpty(message = "It cannot be empty")
     private String email;
 
-    @NotEmpty(message = "It cannot be empty")
     private String password;
 
-    @NotEmpty(message = "It cannot be empty")
     private Integer departmentId;
 
     public PersonNewDTO() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
