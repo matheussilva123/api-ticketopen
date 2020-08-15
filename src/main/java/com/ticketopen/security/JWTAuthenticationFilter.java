@@ -2,6 +2,7 @@ package com.ticketopen.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ticketopen.dto.CredentialsDTO;
+import org.apache.catalina.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -42,8 +43,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             Authentication auth = authenticationManager.authenticate(authToken);
             return auth;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -54,8 +54,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
 
+
         String username = ((UserSS) auth.getPrincipal()).getUsername();
+        Integer idUser = ((UserSS) auth.getPrincipal()).getId();
         String token = jwtUtil.generateToken(username);
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        res.getWriter().write(
+                "{\"" + "token" + "\"" + ":" + "\"" + "Bearer " + token + "\"" +
+
+                        "," + "\"" + "personId" + "\"" + ":" + "\"" + idUser + "\"" + "}"
+        );
         res.addHeader("Authorization", "Bearer " + token);
     }
 
